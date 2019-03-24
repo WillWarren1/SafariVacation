@@ -11,9 +11,9 @@ namespace SafariVacation.Controllers
   {
     // We wanna do a GET to /api/search?query=Lions
     [HttpGet]
-    public ActionResult<string> GetAllAnimals([FromQuery] string query)
+    public ActionResult<string> GetAllAnimals([FromQuery] string species)
     {
-      return query;
+      return species;
     }
 
   }

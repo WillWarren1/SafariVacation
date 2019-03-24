@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SafariVacation.Models;
 using System.Linq;
 using safarivacation;
+using System;
 
 
 namespace SafariVacation.Controllers
@@ -28,23 +29,15 @@ namespace SafariVacation.Controllers
     [HttpGet("{id}")]
     public ActionResult<Animal> GetAnSingleAnimal(int id)
     {
-      //TODO: query the database
-      //return the result
-      //      var results = db
-      //         .Movies
-      //         .Where(w => w.IsActive)
-      //         .OrderBy(o => o.Title)
-      //         .Select(s => new MovieViewModel
-      //         {
-      //           Title = s.Title,
-      //           Rating = s.Rating,
-      //           Director = s.Director,
-      //           Id = s.Id
-      //         })
-      //         .ToList();
-      //   return results;
       var animal = db.Animals.FirstOrDefault(theAnimal => theAnimal.Id == id);
       return animal;
+    }
+
+    [HttpGet("{location}")]
+    public ActionResult<IList<Animal>> GetAnimalsByLocation(string location)
+    {
+      var animalsByLocation = db.Animals.Where(animal => animal.LocationOfLastSeen == location).ToList();
+      return animalsByLocation;
     }
 
     [HttpPost]
@@ -61,9 +54,7 @@ namespace SafariVacation.Controllers
     {
 
       var animal = db.Animals.FirstOrDefault(f => f.Id == id);
-      animal.Species = addToAnimal.Species;
-      animal.CountOfTimesSeen = addToAnimal.CountOfTimesSeen;
-      animal.LocationOfLastSeen = addToAnimal.LocationOfLastSeen;
+      animal.CountOfTimesSeen++;
       db.SaveChanges();
       return animal;
     }
