@@ -33,12 +33,13 @@ namespace SafariVacation.Controllers
       return animal;
     }
 
-    [HttpGet("{location}")]
+    [HttpGet("location={location}")]
     public ActionResult<IList<Animal>> GetAnimalsByLocation(string location)
     {
       var animalsByLocation = db.Animals.Where(animal => animal.LocationOfLastSeen == location).ToList();
       return animalsByLocation;
     }
+
 
     [HttpPost]
     public ActionResult<Animal> CreateAnimal([FromBody] Animal animalToAdd)
@@ -50,7 +51,8 @@ namespace SafariVacation.Controllers
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Animal> UpdateAnimal(int id, [FromBody] Animal addToAnimal)
+    // , [FromBody] Animal addToAnimal
+    public ActionResult<Animal> UpdateAnimal(int id)
     {
 
       var animal = db.Animals.FirstOrDefault(f => f.Id == id);
