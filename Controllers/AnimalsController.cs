@@ -51,7 +51,6 @@ namespace SafariVacation.Controllers
     }
 
     [HttpPut("{id}")]
-    // , [FromBody] Animal addToAnimal
     public ActionResult<Animal> UpdateAnimal(int id)
     {
 
